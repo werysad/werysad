@@ -53,7 +53,7 @@ print(metrics.confusion_matrix(y, pred))
 # BERNOULLI NAIVE BAYES
 # ======================
 print("\n--- Bernoulli Naive Bayes ---")
-#BernoulliNB features represent counts or frequencies
+#BernoulliNB features represent Binary features data
 model = BernoulliNB()
 model.fit(X, y)
 
@@ -123,4 +123,5 @@ print(metrics.confusion_matrix(y, pred))
 
 # print("Bernoulli Accuracy:", model.score(X, y))
 # print(metrics.classification_report(y, pred))
+
 # print(metrics.confusion_matrix(y, pred))
