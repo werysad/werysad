@@ -40,3 +40,5 @@ Y_pred = classifier.predict(X_test)
 print('Confusion matrix: \n ',metrics.confusion_matrix(y_test,Y_pred))
 print('\n Classification report : \n ',metrics.classification_report(y_test,Y_pred))
 print('\n Accuracy scoree: \n',accuracy_score (y_test,Y_pred))
+
+#uses Multiple decision tree
