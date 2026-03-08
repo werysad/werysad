@@ -9,6 +9,7 @@ df = pd.read_csv("Iris.csv")
 
 print(df.head())
 
+##KNN checks the nearest neighbors and predicts the value of Y based on them.
 # Convert text columns to numeric (only when feature columns contain text)
 #df = pd.get_dummies(df, drop_first=True)
 
@@ -88,3 +89,4 @@ plt.show()
 
 # # Confusion matrix
 # print(metrics.confusion_matrix(expected, predicted))
+
