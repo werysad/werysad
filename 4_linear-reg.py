@@ -22,7 +22,8 @@ plt.ylabel("Salary")
 plt.title("Salary vs Experience")
 plt.show()
 
-# Split X and Y
+# linear 1 feature
+
 X = df[['Years of Experience']]
 y = df['Salary']
 
@@ -110,4 +111,5 @@ print("R2 Score:", r2_score(y_test, y_pred))
 # plt.show()
 
 # # R² Score
+
 # print("R2 Score:", r2_score(y_test, y_pred))
