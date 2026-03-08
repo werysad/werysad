@@ -2,9 +2,9 @@ import pandas as pd
 
 # Create unclean dataset
 data = [
-    {"id":1,"name":" ammar ","age":"25","join":"2020-01-15","salary":"$3,500","dept":"HR","active":"Yes"},
-    {"id":2,"name":"sachin","age":"thirty","join":"15/02/2019","salary":"3500","dept":"Human Resources","active":"Y"},
-    {"id":3,"name":"Joylene","age":"","join":"2018/03/01","salary":"N/A","dept":"R&D","active":"no"},
+    {"id":1,"name":" akk ","age":"25","join":"2020-01-15","salary":"$3,500","dept":"HR","active":"Yes"},
+    {"id":2,"name":"saum ","age":"thirty","join":"15/02/2019","salary":"3500","dept":"Human Resources","active":"Y"},
+    {"id":3,"name":"joe","age":"","join":"2018/03/01","salary":"N/A","dept":"R&D","active":"no"},
 ]
 
 df = pd.DataFrame(data)
@@ -32,3 +32,4 @@ df['active'] = df['active'].replace({'Yes':True,'Y':True,'no':False})
 df = df.drop_duplicates()
 
 print(df)
+
