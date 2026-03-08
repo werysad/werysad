@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 #predicts a value using two input features
 def mlr(data,labels,target,to_predict):
-    #load the data 
+    #more than 1 feature
     data = pd.read_csv("data.csv")
     X = data[labels].values
     Y = data[target].values
@@ -50,3 +50,4 @@ def mlr(data,labels,target,to_predict):
     
     #Select the coloums and target from question 
 mlr('data.csv',['Weight','Volume'],'CO2',[[3300,1300]])
+
