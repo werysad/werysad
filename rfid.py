@@ -1,3 +1,6 @@
+# tx = gpio
+# vcc = pin2
+# gnd = pin 6
 #(disable login shell over serial, enable serial hardware)
 #sudo raspi-config  - # for configuring interface I2C
 #reboot
