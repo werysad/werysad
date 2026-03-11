@@ -1,4 +1,9 @@
 #cross conection using usb module8
+# sudo apt-get update
+# sudo apt-get upgrade 
+# sudo raspi-config
+# Interface options > Serial Port > No > Yes > Ok > finish > Yes 
+# pip3 install pyserial 
 
 import serial
 
