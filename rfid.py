@@ -1,9 +1,13 @@
+# tx = gpio
+# vcc = pin2
+# gnd = pin 6
 #(disable login shell over serial, enable serial hardware)
 #sudo raspi-config  - # for configuring interface I2C
 #reboot
 #sudo apt-get update
 #sudo apt-get upgrade
 #pip3 install pyserial
+
 
 import serial
 
