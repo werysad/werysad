@@ -13,3 +13,42 @@ l3.on()
 time.sleep(5)
 l2.off()
 l3.off()
+
+#Blink 1 led 
+# from gpiozero import LED
+# Import time 
+
+# led=LED(17)#pi pin 11
+# led.on()
+# time sleep(1)
+# led.off()
+# time sleep(1)
+# led.on()
+# time sleep(1)
+# led.off()
+# time sleep(1)
+# led.on()
+# time sleep(1)
+# led.off()
+
+# Toggle 2 led 
+# from gpiozero import LED
+# Import time 
+
+# led=LED(17)#pi pin 11
+# led1=LED(27)#PI PIN 13
+# led.on()
+# time sleep(1)
+# led.off()
+# led1.on()
+# time sleep(1)
+# led.on()
+# led1.off()
+# time sleep(1)
+# led.off()
+# led1.on()
+# time sleep(1)
+# led.on()
+# led1.off()
+# time sleep(1)
+# led.off()
