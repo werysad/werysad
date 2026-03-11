@@ -1,3 +1,10 @@
+#(disable login shell over serial, enable serial hardware)
+#sudo raspi-config  - # for configuring interface I2C
+#reboot
+#sudo apt-get update
+#sudo apt-get upgrade
+#pip3 install pyserial
+
 import serial
 
 ser = serial.Serial('/dev/serial0', 9600, timeout=1)
