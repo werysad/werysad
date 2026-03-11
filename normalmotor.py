@@ -1,13 +1,14 @@
-import RPi.GPIO as GPIO
-import time
-
-# Your pins
 # EA to BB+
 # VCC to BB+
 # pi pin 2 to BB+
 # gnd to BB- /PI pin 6 (either direct ot througn breadboard)
-MOTOR_PIN1 = 17  # Clockwise ; pi pin 11 to A1
-MOTOR_PIN2 = 27  # Anti-clockwise; pi pin 13 to A2
+#pi pin 11 to A1
+ # pi pin 13 to A2
+import RPi.GPIO as GPIO
+import time
+
+MOTOR_PIN1 = 17  # Clockwise ; 
+MOTOR_PIN2 = 27  # Anti-clockwise;
 
 # Setup
 GPIO.setwarnings(False)
