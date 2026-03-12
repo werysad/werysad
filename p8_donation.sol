@@ -1,25 +1,15 @@
-	// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.9;
-
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
 contract Donation {
-    address public owner;
-
-    mapping(address => uint) public balances;
-
-    event Donated(address indexed from, uint256 amount);
-
-    constructor() {
-        owner = msg.sender;
-    }
-
-    function donate() public payable {
-        require(msg.value > 0, "Donation amount must be greater than zero");
-
-        balances[msg.sender] += msg.value;
-        emit Donated(msg.sender, msg.value);
-    }
-
-    function getDonationBalance() public view returns (uint256) {
-        return address(this).balance;
-    }
+ uint public total;
+ function donate() public payable {
+ total += msg.value;
+ }
+ function getBalance() public view returns(uint) {
+ return address(this).balance;
+ }
 }
+
+#copy the address paste in "at address" click at address -> then deploy the balance will be updated 
+#Value add 5 -> press donate 
+#in console chcek output open it and check value should come someting (5000000000000 wei)
