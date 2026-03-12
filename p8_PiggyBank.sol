@@ -1,41 +1,35 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 contract PiggyBank {
 
     address public owner;
-    mapping(address => uint256) public balances;
-
-    event Deposited(address indexed from, uint256 amount);
-    event Withdrawn(address indexed to, uint256 amount);
 
     constructor() {
         owner = msg.sender;
     }
 
-    function deposit() public payable {
-        require(msg.value > 0, "Deposit amount must be greater than zero");
-        require(
-            balances[msg.sender] + msg.value <= 100 ether,
-            "Total balance cannot exceed 100 ether"
-        );
+    // Deposit ETH
+    function deposit() public payable {}
 
-        balances[msg.sender] += msg.value;
-        emit Deposited(msg.sender, msg.value);
-    }
+    // Withdraw specific amount
+    function withdraw(uint amount) public {
 
-    function withdraw(uint256 amount) public {
-        require(balances[msg.sender] >= amount, "Insufficient balance");
+        require(msg.sender == owner, "Only owner can withdraw");
+        require(amount <= address(this).balance, "Not enough balance");
 
-        balances[msg.sender] -= amount;
-
-        (bool success, ) = payable(msg.sender).call{value: amount}("");
+        (bool success, ) = payable(owner).call{value: amount}("");
         require(success, "Transfer failed");
-
-        emit Withdrawn(msg.sender, amount);
     }
 
-    function getDonationBalance() public view returns (uint256) {
+    // Check contract balance
+    function getBalance() public view returns(uint) {
         return address(this).balance;
     }
 }
+
+#1st deploy 
+#in value 100000 > deposit 
+#chcek balance 
+#withdraw
+#balance
