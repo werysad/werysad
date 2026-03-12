@@ -1,0 +1,10 @@
+AIM: Installation of ethereum 
+Download ethereum 
+
+> more info > run anyway > tick developer mode > Next > install 
+
+Program Files > geth > cmd
+> geth version 
+
+Download ganache > install > lunch> open ganache > quick start 
+Open Meta Mask > download chrome extension > login > Password: Panchlog@5

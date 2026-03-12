@@ -1,0 +1,10 @@
+Login > meta mask 
+Click menu > network > network name : Localhost 8545
+RPC URL > copypaste from ganache add 
+Chain id 1337 > currency symbol > ETH
+
+Click on account > add wallet > import wallet > paste private key from ganache> import 
+
+Click on send > ETH > paste add  from ganache acc2> add amount > send 
+
+Check ganache acc1 deducted acc2 added 

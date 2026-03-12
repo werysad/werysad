@@ -1,0 +1,8 @@
+P1 = price on the first day 
+PN = price on the last day 
+Final change (%) = PN-P1/P1 * 100
+		     = 68491.26 – 87015.49 / 87015.49 * 100
+                            = -21.2884
+Log return R = LN(PN/P1) * 100
+                     = LN (68491.26 / 87015.49) * 100
+                     = -23.9380
