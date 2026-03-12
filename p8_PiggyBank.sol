@@ -1,24 +1,41 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+contract PiggyBank {
 
-contract SimpleStaking{
-    IERC20 public token;
-    mapping(address => uint256) public stakes;
+    address public owner;
+    mapping(address => uint256) public balances;
 
-    constructor(address _token){
-        token = IERC20(_token);
+    event Deposited(address indexed from, uint256 amount);
+    event Withdrawn(address indexed to, uint256 amount);
 
+    constructor() {
+        owner = msg.sender;
     }
-    function stake(uint256 amount) external {
-        require (amount > 0 , "Zero amount ");
-        token.transferFrom(msg.sender,address(this),amount);
-        stakes[msg.sender] += amount;
+
+    function deposit() public payable {
+        require(msg.value > 0, "Deposit amount must be greater than zero");
+        require(
+            balances[msg.sender] + msg.value <= 100 ether,
+            "Total balance cannot exceed 100 ether"
+        );
+
+        balances[msg.sender] += msg.value;
+        emit Deposited(msg.sender, msg.value);
     }
-    function unstake(uint256 amount) external {
-        require(stakes[msg.sender] >= amount , "Not enough stake");
-        stakes[msg.sender] -= amount;
-        token.transfer(msg.sender,amount);
+
+    function withdraw(uint256 amount) public {
+        require(balances[msg.sender] >= amount, "Insufficient balance");
+
+        balances[msg.sender] -= amount;
+
+        (bool success, ) = payable(msg.sender).call{value: amount}("");
+        require(success, "Transfer failed");
+
+        emit Withdrawn(msg.sender, amount);
+    }
+
+    function getDonationBalance() public view returns (uint256) {
+        return address(this).balance;
     }
 }
