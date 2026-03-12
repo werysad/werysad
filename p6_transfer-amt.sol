@@ -21,3 +21,9 @@ balanceOf[toWhom] += value;
 return true;
 }
 }
+
+#Compile > add initial value in deploy > check name, symbol, total supply 
+#Should be according to code
+#Now in transfer > to whom : acc2 add > add amt to send
+#Balance > acc 1 add> transact 
+#Check total supply amt should be deducted 
