@@ -8,3 +8,5 @@ contract MyToken is ERC20{
         _mint(msg.sender,1_000_000 ether);
             }
 }
+//After compile>click on deploy > 
+//Check total supply , name, symbol, 
