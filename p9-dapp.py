@@ -1,5 +1,6 @@
 # AIM: DAPP Application without Front end
 # Download node js 16.20.2
+#node-v
 # Click menu > network > network name : Localhost 8545
 # RPC URL > copypaste from ganache add 
 # Chain id 1337 > currency symbol > ETH
