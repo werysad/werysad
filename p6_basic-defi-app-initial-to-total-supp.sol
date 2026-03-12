@@ -14,3 +14,5 @@ contract tytoken{
          balanceOf[msg.sender] = initialSupply;
      }
 }
+#Compile > add initial value in deploy > check name, symbol, total supply 
+#Should be according to code
