@@ -22,3 +22,6 @@ contract SimpleStaking{
         token.transfer(msg.sender,amount);
     }
 }
+
+#Compile the code go to deploy copy first address paste at deploy and click on deploy 
+#In output check token it should match the address 
