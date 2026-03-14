@@ -173,11 +173,12 @@ VPC: Practice-VPC
 
 
 Inbound Rule:
-Type: SSH
+Type: All traffic 
 Port: 22
-Source: My IP
+Source k left vale me select 0.0.0.0/0 for both SG
 
 
+Delete 
 Click:
 Create Security Group
 
@@ -197,9 +198,9 @@ VPC: Practice-VPC
 
 
 Inbound Rule:
-Type: SSH
+Type: all traffic 
 Port: 22
-Source: Public-SG
+Source k left vale me 0.0.0.0/0
 
 
 Click:
@@ -238,6 +239,7 @@ Click:
 Create Role
 
 
+IAM role then attach and save
 ------------------------------------------------------------
 STEP 5 — Create Key Pair
 ------------------------------------------------------------
@@ -324,7 +326,7 @@ Launch Instance
 ------------------------------------------------------------
 STEP 8 — Attach IAM Role
 ------------------------------------------------------------
-EC2 → Instances → Select instance
+EC2 → Instances → Select instance individually 1 by 1 and 
 
 
 Actions
@@ -337,8 +339,7 @@ EC2-SSM-Role
 
 
 Save
-
-
+For both 
 ------------------------------------------------------------
 STEP 9 — Connect to Public EC2
 ------------------------------------------------------------
