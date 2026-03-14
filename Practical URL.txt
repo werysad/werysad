@@ -1,0 +1,616 @@
+﻿PRACTICAL NO 1
+Q) Create a S3 Bucket and store a file from your local machine.
+Step 1 : on aws dashboard search for S3
+Step 2: click on create bucket
+Step 3 – Give name to your bucket in small letters and number 
+disable the bucket key option and let everything be as it is.
+Step 4 – Click on finish and bucket is created. Then Click on the Bucket name.
+Step 5: click on upload then add file and you can upload any file in the bucket from local machine
+Thats it click upload and you are done
+
+
+PRACTICAL 2
+Aim: Creating a Cloud Computer Using AWS
+- Search for EC2 on AWS console
+- Click on create instance
+- give name to your instance & select your OS Image.
+- Now scroll and click on create key pair < give name, RSA, .Pem and finish
+- Click on launch instance and once its created click on connect
+        - Connect using RDP
+- Download Remote desktop file
+- Click on Get Password
+- upload the Key-pair file you had downloaded.
+- click on decrypt password
+- copy the password & open the Remote desktop file you had earlier downloaded and paste the password over there.
+- click on yes, and you are connected.
+Types
+Windows, Linux, Redhat, Ubuntu 
+
+
+
+
+
+
+PRACTICAL 3
+Aim: hosting zip html file on AWS using AWS amplify.
+- Search for AWS Amplify & Open it
+- Scroll down and Click on Create an app
+- Select deploy without Git & create an index.html file and have it zipped to upload here from the local machine.
+- Give a name to your app, drag and drop your zip folder(name the folder/file Index) which contains html file.
+- save and deploy
+- Now press on the link that has been generated
+Paste it in browser
+
+
+Github Part
+Aim: Hosting an App Using GitHub.
+Create a React App.
+Commands:
+Npx create-react-app practice
+Cd practice
+Code .
+(you will reach VS code using Code .)
+git init
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin <Repo URL>
+git push -u origin main
+git status
+
+
+
+
+Now go to AWS amplify and select host using Github
+Add repo & branch - 
+* shiv-2011/practice
+* main
+Save and deploy || if failed -
+Go to cmd ;
+practice> npm install yaml@@2.8.2 --save and deploy again this time it will run.
+
+
+Lambda Part - 2. perform lambda by writing a python code and test event.
+
+
+
+
+Open Lambda < Create a Function < Provide the Function Name, runtime – python 3.14, architecture – arm64.
+* Create the function, scroll down and write the code
+Code:
+import json
+import logging
+logger=logging.getLogger()
+logger.setLevel(logging.INFO)
+
+
+def lambda_handler(event, context):
+    # TODO implement
+   length=event['length']
+   width=event['width']
+   area=calculateArea(length,width)
+   print(f"Area: {area}")
+   logger.info(f"cloudwatch logs group: {context.log_group_name}")
+   data={
+    "area":area
+   }
+   return json.dumps(data)
+
+
+def calculateArea(length, width):
+    return length*width
+
+
+Click on Deploy < create a new test event < provide event name and event json code:
+Key Pair for Testing: -
+{
+  "length": 23,
+  "width":45
+}
+
+
+Click on invoke
+
+
+PRACTICAL 4 & 5
+Aim: Secure AWS Networking
+PRACTICAL: Secure AWS Networking (Public EC2 → Private EC2 SSH)
+
+
+------------------------------------------------------------
+STEP 1 — Create VPC
+------------------------------------------------------------
+AWS Console → Search VPC → Create VPC
+
+
+Select:
+VPC and More
+
+
+Name: Practice-VPC
+CIDR block: 10.0.0.0/16
+
+
+Configuration:
+Availability Zones: 2
+Public Subnets: 2
+Private Subnets: 2
+
+
+Subnets created automatically:
+Public-1 → 10.0.0.0/24
+Public-2 → 10.0.1.0/24
+Private-1 → 10.0.2.0/24
+Private-2 → 10.0.3.0/24
+
+
+Enable:
+Internet Gateway
+NAT Gateway (Regional)
+
+
+Click:
+Create VPC
+
+
+Resources created automatically:
+VPC
+Public Subnets
+Private Subnets
+Route Tables
+Internet Gateway
+NAT Gateway
+
+
+------------------------------------------------------------
+STEP 2 — Create Public Security Group
+------------------------------------------------------------
+EC2 → Security Groups → Create Security Group
+
+
+Name: Public-SG
+VPC: Practice-VPC
+
+
+Inbound Rule:
+Type: SSH
+Port: 22
+Source: My IP
+
+
+Click:
+Create Security Group
+
+
+Purpose:
+Allow SSH from laptop → Public EC2
+
+
+------------------------------------------------------------
+STEP 3 — Create Private Security Group
+------------------------------------------------------------
+EC2 → Security Groups → Create Security Group
+
+
+Name: Private-SG
+VPC: Practice-VPC
+
+
+Inbound Rule:
+Type: SSH
+Port: 22
+Source: Public-SG
+
+
+Click:
+Create Security Group
+
+
+Purpose:
+Allow SSH only from Public EC2
+
+
+------------------------------------------------------------
+STEP 4 — Create IAM Role
+------------------------------------------------------------
+Search IAM → Roles → Create Role
+
+
+Trusted Entity:
+AWS Service
+
+
+Use Case:
+EC2
+
+
+Attach Policies:
+AdministratorAccess
+AdministratorAccess-Amplify
+AdministratorAccess-AWSElasticBeanstalk
+
+
+Role Name:
+EC2-SSM-Role
+
+
+Click:
+Create Role
+
+
+------------------------------------------------------------
+STEP 5 — Create Key Pair
+------------------------------------------------------------
+EC2 → Key Pairs → Create Key Pair
+
+
+Name: secure-key
+Key Type: RSA
+Format: .pem
+
+
+Download file:
+secure-key.pem
+
+
+Save in:
+Downloads folder
+
+
+------------------------------------------------------------
+STEP 6 — Create Public EC2 Instance
+------------------------------------------------------------
+EC2 → Launch Instance
+
+
+Name:
+Public-Server
+
+
+AMI:
+Amazon Linux 2023
+
+
+Key Pair:
+secure-key
+
+
+Network Settings:
+VPC → Practice-VPC
+Subnet → Public Subnet
+Auto Assign Public IP → Enable
+
+
+Security Group:
+Select existing → Public-SG
+
+
+Click:
+Launch Instance
+
+
+------------------------------------------------------------
+STEP 7 — Create Private EC2 Instance
+------------------------------------------------------------
+EC2 → Launch Instance
+
+
+Name:
+Private-Server
+
+
+AMI:
+Amazon Linux 2023
+
+
+Key Pair:
+secure-key
+
+
+Network Settings:
+VPC → Practice-VPC
+Subnet → Private Subnet
+Auto Assign Public IP → Disable
+
+
+Security Group:
+Select existing → Private-SG
+
+
+Click:
+Launch Instance
+
+
+------------------------------------------------------------
+STEP 8 — Attach IAM Role
+------------------------------------------------------------
+EC2 → Instances → Select instance
+
+
+Actions
+→ Security
+→ Modify IAM Role
+
+
+Select:
+EC2-SSM-Role
+
+
+Save
+
+
+------------------------------------------------------------
+STEP 9 — Connect to Public EC2
+------------------------------------------------------------
+Open CMD / Terminal
+Go to folder containing key
+
+
+Example:
+
+
+C:\Users\sachi\Downloads
+
+
+Run:
+
+
+ssh -i secure-key.pem ec2-user@PUBLIC-IP
+
+
+Example:
+
+
+ssh -i secure-key.pem ec2-user@3.110.33.43
+
+
+Type:
+
+
+yes
+
+
+Now connected to Public EC2
+
+
+Prompt:
+
+
+[ec2-user@ip-10-0-4-55 ~]$
+
+
+------------------------------------------------------------
+STEP 10 — Connect to Private EC2
+------------------------------------------------------------
+Inside Public EC2 run:
+
+
+ssh ec2-user@PRIVATE-IP
+
+
+Example:
+
+
+ssh ec2-user@10.0.135.135
+
+
+Type:
+
+
+yes
+
+
+Now connected to Private EC2
+
+
+Prompt:
+[ec2-user@ip-10-0-135-135 ~]$
+
+
+------------------------------------------------------------
+FINAL ARCHITECTURE
+------------------------------------------------------------
+
+
+Laptop
+   ↓
+Public EC2 (Bastion Host)
+   ↓
+Private EC2 (Secure Instance)
+
+
+------------------------------------------------------------
+PURPOSE
+------------------------------------------------------------
+
+
+Public EC2:
+Gateway for SSH access
+
+
+Private EC2:
+Secure instance without public internet access
+
+
+Only internal VPC communication allowed
+
+
+
+
+
+
+Practical 6 
+Questions: 
+* mainly Jenkins Question can be:
+1. Installing Jenkins
+2. Creating Freestyle jobs
+3. Running batch commands / scripts
+4. Scheduling jobs
+5. Running Python scripts
+
+
+Installation 
+- Search Amazon Corretto 21 (JDK) on Google → download Windows x64 (.msi) → open file and complete installation.
+- check Java path - win btn < env < sys variable < JAVA_HOME 
+- Search Jenkins download on Google → open Jenkins website → download jenkins.war file.
+- Open Command Prompt and verify Java installation:
+java -version
+javac
+
+Practical 
+- Move jenkins.war to D drive → open CMD in D drive and run: 
+java -jar jenkins.war 
+java -jar jenkins.war --httpPort 9090
+If port 8080 is not working, use the above command to start Jenkins on port 9090.
+- Click Install Suggested Plugins - Skip and continue as admin 
+(username: admin, pass: c drive<user<ur name<.jenkins<secrets<InitialAdminPass) 
+< provide uRL 
+- Create project: Click New Item → Enter project name → Select Freestyle Project → OK.
+- Create users: Go to Manage Jenkins (Setting Btn beside Profile) → Security section→ Users → create two users 
+- Set permissions: Go to settings again → Go to Security Section → click security →scroll to Authorization → Matrix-based security → Add both users (ID you gave) → - assign permissions. (give 1st user ko Read and 2nd user ko Build Permission)
+Sign out → login using created users to verify permissions.
+
+
+Practical 7
+open CMD in D drive and run: java -jar jenkins.war 
+Open browser → go to:http://localhost:8080 
+- create a freestyle project < Go to Build Steps → Execute Windows Batch Command → paste:
+@echo off
+echo Checking website health...
+curl -Is https://google.com >NUL || exit /b 1
+curl -Is https://github.com >NUL || exit /b 1
+curl -Is https://jaihindcollege.com >NUL || exit /b 1
+echo All sites are UP
+- Click Build Now
+Try it with wrong url 
+Go back to your project -> configuration -> build step -> add wrong url and save 
+
+For Triggers 
+Go to Configure → click Trigger→  Build Periodically → set time:12 11 * * 0-7[a] (MINUTE  HOUR DAY_OF_MONTH MONTH DAY_OF_WEEK) -> Save 
+
+
+Run Python Script using Jenkins
+Go to Jenkins (C:\Users\pc23\.jenkins\workspace\project name)
+workspace path → open python_test folder → add python file.
+Go to Jenkins -> project → workspace → your python file(Refresh to see your file name/Enter File Name) → click “→” . your file will run automatically 
+
+
+
+
+Practical 8 - Docker 
+
+
+in pc CMD wsl --update
+
+
+now in docker
+python pull (1B+)
+python run
+cmd open inside docker
+docker run -it python bash
+python
+print("hellooo")
+exit
+Exit
+
+
+in C drive make a folder and put app.py file in it (zip file given in GitHub repo werysad - should have app.py, requirement.txt,dockerfie)
+
+
+in docker CMD go to the folder where u have app.py
+write
+docker build -t flask_docker_app . (flask_docker_app is folder name fro werysad)
+docker run -p 5000:5000 flask_docker_app
+open link to crosscheck
+in docker CMD ctrl+c
+Then run
+docker tag flask_docker_app your_username_of_docker/flask_docker_app:latest 
+docker push your_username_of_docker/flask_docker_app:latest
+then on the top search for your username u will see 2 one with docker symbol and one with pc symbol 
+
+
+
+
+
+
+
+
+
+
+
+
+Question for IT people based on p4&5
+Practical – Create EC2 Instance, Security Group and Connect via SSH 
+
+
+Step 1 – Open EC2
+Login to AWS Console → search EC2 → open EC2 Dashboard.
+
+
+Step 2 – Launch Instance
+Click Launch Instance → give name → select OS (Amazon Linux / Ubuntu).
+
+
+Step 3 – Create Key Pair
+Scroll to Key Pair → Create Key Pair → give name → select RSA → .pem format → download the key file.
+
+
+Step 4 – Create Security Group
+In Network Settings → Create Security Group.
+Add inbound rule:
+Type: SSH
+Source: My IP
+
+
+Step 5 – Launch Instance
+Click Launch Instance and wait until the instance state becomes Running.
+
+
+Step 6 – Copy Public IP
+Open the instance details and copy the Public IPv4 Address.
+
+
+Step 7 – Connect using SSH
+Open Terminal / CMD in the folder where the .pem file is stored and run:
+
+
+chmod 400 keyname.pem
+ssh -i keyname.pem ec2-user@PUBLIC-IP
+
+
+Example:
+ssh -i secure-key.pem ec2-user@13.233.xx.xx
+
+
+Step 8 – Connection Successful
+You will now see the EC2 terminal, meaning SSH connection is established.
+
+
+Result:
+EC2 instance created, security group configured, and connection established via SSH.
+
+
+
+
+
+
+Practical Questions.
+Q1:Store a file from your local system in AWS cloud storage.
+Q2:Show how objects can be uploaded into Amazon S3.
+Q1: Create a virtual machine in AWS and access it remotely.
+Q2: Launch an EC2 instance and demonstrate how you connect to it using the generated key.
+Q1: Deploy a static web application using AWS Amplify.
+Q2: Host a simple HTML website on AWS without using a server.
+Q1: Demonstrate how a GitHub repository can be used to deploy an application in AWS Amplify.
+Q2: Connect a GitHub project to AWS and publish the application.
+Q1: Write a serverless function that performs a calculation and test it.
+Q2: Create an AWS Lambda function using Python and trigger it using a test event.
+Q1: Design a secure network architecture in AWS with public and private subnets.
+Q2: Create a VPC setup where a private server is accessed through a public instance.
+Q1: Set up Jenkins and demonstrate how jobs can be created.
+Q2: Install Jenkins and show how users and permissions are managed.
+Q1: Create a Jenkins job that automatically checks the availability of websites.
+Q2: Schedule a Jenkins task that executes a script periodically.
+
+
+[a]MINUTE HOUR DAY_OF_MONTH MONTH DAY_OF_WEEK
